@@ -8,7 +8,6 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { useState } from 'react';
 import {
   collection,
-  doc,
   getDocs,
   query,
   updateDoc,
@@ -19,7 +18,6 @@ import { db } from '../../../../firebase/firebase';
 const { width, height } = Dimensions.get('window');
 
 const Header = () => {
-  const auth = getAuth();
   const { photoURL, email, displayName, uid } = getAuth().currentUser;
   const [avatar, setAvatar] = useState(photoURL);
 
@@ -93,7 +91,7 @@ const Header = () => {
         </Avatar>
 
         <View>
-          <Text>{displayName || email}</Text>
+          <Text style={styles.title}>{displayName || email}</Text>
         </View>
       </LinearGradient>
     </View>
@@ -104,6 +102,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: width,
+  },
+  title: {
+    fontSize: theme.fontSize.xl,
+    fontWeight: theme.fontWeight.bold,
+    color: theme.colors.grey.grey500,
   },
   gradient: {
     flex: 1,
@@ -119,16 +122,3 @@ const styles = StyleSheet.create({
 });
 
 export default Header;
-
-//     const firestore = getFirestore();
-//     const userCollection = collection(firestore, 'users');
-//     const q = query(
-//       userCollection,
-//       where('email', '==', auth.currentUser.email)
-//     );
-//     const querySnapshot = await getDocs(q);
-//     if (!querySnapshot.empty) {
-//       const userDocRef = querySnapshot.docs[0].ref;
-//       await updateDoc(userDocRef, { imageURL: imageUrl });
-//       await updateProfile(auth.currentUser, { imageURL: imageUrl });
-//       setAvatar(imageUrl);

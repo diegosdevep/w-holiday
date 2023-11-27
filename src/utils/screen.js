@@ -5,6 +5,7 @@ const homeStack = {
 const articleStack = {
   tab: 'ArticleTab',
   article: 'Article',
+  addArticle: 'AddArticle',
 };
 const rankingStack = {
   tab: 'RankingTab',

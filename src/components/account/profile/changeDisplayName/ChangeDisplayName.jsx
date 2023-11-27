@@ -8,7 +8,6 @@ import Toast from 'react-native-toast-message';
 import theme from '../../../../styles/theme';
 import {
   collection,
-  doc,
   getDocs,
   query,
   updateDoc,

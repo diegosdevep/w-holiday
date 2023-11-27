@@ -9,10 +9,13 @@ const CustomTextInput = ({
   placeholder,
   secureTextEntry,
   errorMessage,
+  type,
 }) => {
   const [focused, setFocused] = useState(false);
+
   return (
     <Input
+      keyboardType={type}
       value={value}
       onChangeText={onChangeText}
       onFocus={() => setFocused(true)}

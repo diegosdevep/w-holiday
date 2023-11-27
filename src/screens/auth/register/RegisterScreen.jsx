@@ -93,6 +93,7 @@ const RegisterScreen = () => {
 
             <View style={{ marginTop: 40 }}>
               <CustomTextInput
+                type='email-address'
                 placeholder='Email'
                 onChangeText={(text) => formik.setFieldValue('email', text)}
                 errorMessage={formik.errors.email}

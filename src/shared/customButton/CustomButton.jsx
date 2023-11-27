@@ -21,7 +21,11 @@ const CustomButton = ({
   };
 
   return (
-    <TouchableOpacity style={[buttonStyles, style]} onPress={onPress}>
+    <TouchableOpacity
+      style={[buttonStyles, style]}
+      onPress={onPress}
+      activeOpacity={0.6}
+    >
       <Text style={textStyles}>{label}</Text>
     </TouchableOpacity>
   );

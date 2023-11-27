@@ -23,7 +23,6 @@ import {
   initialValues,
   validationSchema,
 } from '../../../components/auth/utils/initialValuesLogin';
-import theme from '../../../styles/theme';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -73,6 +72,7 @@ const LoginScreen = () => {
 
             <View style={styles.inputBox}>
               <CustomTextInput
+                type='email-address'
                 placeholder='Email'
                 onChangeText={(text) => formik.setFieldValue('email', text)}
                 errorMessage={formik.errors.email}
