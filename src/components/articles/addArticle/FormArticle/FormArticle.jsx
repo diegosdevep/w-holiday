@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native';
-import theme from '../../../styles/theme';
 import { Input } from 'react-native-elements';
-import { styles } from './addArticleStyles';
+import { styles } from './formArticle.styles';
+import theme from '../../../../styles/theme';
 
-const AddArticle = ({ formik }) => {
+const FormArticle = ({ formik }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -34,4 +34,4 @@ const AddArticle = ({ formik }) => {
   );
 };
 
-export default AddArticle;
+export default FormArticle;

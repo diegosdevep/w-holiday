@@ -6,15 +6,27 @@ import { Icon } from 'react-native-elements';
 import { styles } from './articleScreen.styles';
 import { screen } from '../../../utils/screen';
 import theme from '../../../styles/theme';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { db } from '../../../firebase/firebase';
+import ArticleList from '../../../components/articles/articles/articleList/ArticleList';
 
 const ArticleScreen = () => {
   const navigation = useNavigation();
   const [currentUser, setCurrentUser] = useState(null);
+  const [articles, setArticles] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+    });
+  }, []);
+
+  useEffect(() => {
+    const q = query(collection(db, 'articles'), orderBy('createdAt', 'desc'));
+
+    onSnapshot(q, (snapshot) => {
+      setArticles(snapshot.docs);
     });
   }, []);
 
@@ -24,6 +36,7 @@ const ArticleScreen = () => {
 
   return (
     <View style={styles.container}>
+      <ArticleList articles={articles} />
       {currentUser && (
         <Icon
           reverse

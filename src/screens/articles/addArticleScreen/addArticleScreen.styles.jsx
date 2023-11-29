@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   btn: {
+    marginBottom: 20,
     padding: 15,
     backgroundColor: theme.colors.secondary.blue500,
   },

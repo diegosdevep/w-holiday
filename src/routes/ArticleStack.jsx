@@ -11,12 +11,12 @@ const ArticleStack = () => {
       <Stack.Screen
         name={screen.article.article}
         component={ArticleScreen}
-        options={{ title: 'Article' }}
+        options={{ title: 'Articulos' }}
       />
       <Stack.Screen
         name={screen.article.addArticle}
         component={AddArticleScreen}
-        options={{ title: 'Add Article' }}
+        options={{ title: 'Crear Articulo' }}
       />
     </Stack.Navigator>
   );

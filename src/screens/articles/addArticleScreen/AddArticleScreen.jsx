@@ -1,15 +1,19 @@
-import { useFormik } from 'formik';
 import { ScrollView, View } from 'react-native';
 import { Button } from 'react-native-elements';
-import { styles } from './addArticleScreen.styles';
-import { initialValues, validationSchema } from './addArticleScreen.data';
-import UploadImage from '../../../components/articles/uploadImage/UploadImage';
-import AddArticle from '../../../components/articles/addArticle/AddArticle';
 import { useNavigation } from '@react-navigation/native';
+
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase.js';
 import { getAuth } from 'firebase/auth';
-import PrincipalImage from '../../../components/articles/PrincipalImage/PrincipalImage';
+
+import { useFormik } from 'formik';
+import { initialValues, validationSchema } from './addArticleScreen.data';
+
+import FormArticle from '../../../components/articles/addArticle/FormArticle/FormArticle.jsx';
+import PrincipalImage from '../../../components/articles/addArticle/PrincipalImage/PrincipalImage';
+import CategoryList from '../../../components/articles/addArticle/categoryList/CategoryList';
+import UploadImage from '../../../components/articles/addArticle/uploadImage/UploadImage';
+import { styles } from './addArticleScreen.styles';
 
 const AddArticleScreen = () => {
   const navigation = useNavigation();
@@ -43,10 +47,12 @@ const AddArticleScreen = () => {
   });
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <PrincipalImage formik={formik} />
       <View style={styles.content}>
-        <AddArticle formik={formik} />
+        <FormArticle formik={formik} />
+
+        <CategoryList formik={formik} />
 
         <UploadImage formik={formik} />
 

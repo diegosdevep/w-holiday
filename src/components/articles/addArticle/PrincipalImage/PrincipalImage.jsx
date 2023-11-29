@@ -6,7 +6,7 @@ const PrincipalImage = ({ formik }) => {
   const primaryImage = formik.values.images[0];
   const imageSource = primaryImage
     ? { uri: primaryImage }
-    : require('../../../../assets/notfound.png');
+    : require('../../../../../assets/notfound.png');
 
   return (
     <View style={styles.content}>

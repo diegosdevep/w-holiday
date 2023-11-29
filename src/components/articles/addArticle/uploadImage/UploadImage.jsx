@@ -10,7 +10,7 @@ import {
   deleteObject,
 } from 'firebase/storage';
 import { styles } from './uploadimage.styles';
-import theme from '../../../styles/theme';
+import theme from '../../../../styles/theme';
 import { v4 as uuid } from 'uuid';
 
 const UploadImage = ({ formik }) => {
