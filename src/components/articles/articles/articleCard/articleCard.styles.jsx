@@ -4,7 +4,7 @@ import theme from '../../../../styles/theme';
 export const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
-    paddingBottom: 20,
+    paddingVertical: 20,
     borderBottomWidth: 0.3,
     borderColor: theme.colors.grey.grey200,
   },
@@ -16,12 +16,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   title: {
+    minHeight: 40,
     marginVertical: 10,
+    marginHorizontal: 10,
     fontWeight: theme.fontWeight.bold,
     fontSize: theme.fontSize.md,
     color: theme.colors.grey.grey800,
     flexWrap: 'wrap',
-    marginHorizontal: 10,
   },
   img: {
     width: 100,

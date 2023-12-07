@@ -1,12 +1,16 @@
-import { collection, getDocs } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { View, FlatList } from 'react-native';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
 import ArticleCard from '../articleCard/ArticleCard';
 import { styles } from './articleList.styles';
 
 const ArticleList = ({ articles }) => {
   const [users, setUsers] = useState([]);
+  const [memoizedUsers, memoizedArticles] = useMemo(
+    () => [users, articles],
+    [users, articles]
+  );
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -27,9 +31,10 @@ const ArticleList = ({ articles }) => {
     fetchUsers();
   }, []);
 
-  const articlesWithUserData = articles?.map((article) => {
-    const userMatch = users?.find((user) => user.id === article.userId);
-
+  const articlesWithUserData = memoizedArticles?.map((article) => {
+    const userMatch = memoizedUsers?.find(
+      (user) => user.data.uid === article.data().userId
+    );
     return {
       articleData: article.data(),
       userData: userMatch ? userMatch.data : null,
@@ -43,7 +48,6 @@ const ArticleList = ({ articles }) => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => {
           const { articleData, userData } = item;
-
           return <ArticleCard userData={userData} articleData={articleData} />;
         }}
       />

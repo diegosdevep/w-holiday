@@ -1,6 +1,7 @@
 import { ScrollView, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { v4 as uuid } from 'uuid';
 
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/firebase.js';
@@ -30,6 +31,9 @@ const AddArticleScreen = () => {
         if (user) {
           const articleData = {
             ...formValue,
+            id: uuid(),
+            likes: 0,
+            likedBy: [],
             userId: user.uid,
             createdAt: new Date(),
           };

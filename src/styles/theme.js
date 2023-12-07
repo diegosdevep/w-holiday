@@ -53,6 +53,9 @@ const theme = {
       grey800: '#333333',
       grey900: '#1a1a1a',
     },
+    danger: {
+      red: '#FF0000',
+    },
   },
   fonts: {
     main: 'System',

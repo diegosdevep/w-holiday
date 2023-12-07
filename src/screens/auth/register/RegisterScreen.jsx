@@ -48,6 +48,7 @@ const RegisterScreen = () => {
           displayName,
           email,
           imageURL: photoURL,
+          saved: [],
           create_user: new Date().toLocaleString(),
         };
 

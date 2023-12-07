@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ArticleScreen from '../screens/articles/articlesScreen/ArticleScreen';
 import { screen } from '../utils/screen';
 import AddArticleScreen from '../screens/articles/addArticleScreen/AddArticleScreen';
+import ArticleDetailScreen from '../screens/articles/articleDetailScreen/ArticleDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,11 @@ const ArticleStack = () => {
         name={screen.article.addArticle}
         component={AddArticleScreen}
         options={{ title: 'Crear Articulo' }}
+      />
+      <Stack.Screen
+        name={screen.article.articleDetail}
+        component={ArticleDetailScreen}
+        options={{ title: 'Detalles de Articulo' }}
       />
     </Stack.Navigator>
   );
