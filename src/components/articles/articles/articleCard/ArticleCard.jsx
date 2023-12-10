@@ -1,17 +1,20 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import ArticleHeader from '../header/ArticleHeader';
-import { styles } from './articleCard.styles';
-import ArticleFooter from '../articleFooter/ArticleFooter';
-import { screen } from '../../../../utils/screen';
 import { useNavigation } from '@react-navigation/native';
+import ArticleFooter from '../articleFooter/ArticleFooter';
+import ArticleHeader from '../header/ArticleHeader';
+import { screen } from '../../../../utils/screen';
+import { styles } from './articleCard.styles';
 
 const ArticleCard = ({ userData, articleData }) => {
   const navigation = useNavigation();
 
   const handleArticlePress = () => {
-    navigation.navigate(screen.article.articleDetail, { articleData });
+    navigation.navigate(screen.article.articleDetail, {
+      articleData,
+      userData,
+    });
   };
-  console.log(articleData.images);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.content} onPress={handleArticlePress}>
@@ -21,10 +24,18 @@ const ArticleCard = ({ userData, articleData }) => {
             <Text style={styles.title}>{articleData.title}</Text>
           </View>
         )}
-        <Image source={{ uri: articleData.images[0] }} style={styles.img} />
+
+        {articleData.images[0] ? (
+          <Image source={{ uri: articleData.images[0] }} style={styles.img} />
+        ) : (
+          <Image
+            source={require('../../../../../assets/notfound.png')}
+            style={styles.img}
+          />
+        )}
       </TouchableOpacity>
 
-      <ArticleFooter articleData={articleData} />
+      <ArticleFooter articleData={articleData} userData={userData} />
     </View>
   );
 };

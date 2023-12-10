@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Platform } from 'react-native';
 import { iconOptions } from '../utils/iconOptions';
 import { screen } from '../utils/screen';
 import theme from '../styles/theme';

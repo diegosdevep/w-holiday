@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   img: {
     width: 35,
     height: 35,
-    borderRadius: 50,
+    borderRadius: '50%',
   },
   displayName: {
     fontSize: theme.fontSize.sm,

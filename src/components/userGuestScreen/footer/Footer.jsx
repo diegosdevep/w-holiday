@@ -4,6 +4,7 @@ import { styles } from './footer.styles';
 import Indicators from '../indicators/Indicators';
 import theme from '../../../styles/theme';
 import CustomButton from '../../../shared/customButton/CustomButton';
+import { screen } from '../../../utils/screen';
 
 const Footer = ({ currentSlideIndex, slides, skip, goToNextSlide }) => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ const Footer = ({ currentSlideIndex, slides, skip, goToNextSlide }) => {
           <View style={styles.boxButton}>
             <CustomButton
               label='GET STARTED'
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => navigation.navigate(screen.account.login)}
               textColor={theme.colors.white}
             />
           </View>

@@ -3,12 +3,10 @@ import {
   SafeAreaView,
   FlatList,
   Dimensions,
-  TouchableOpacity,
   StyleSheet,
   Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
 import Footer from '../../components/userGuestScreen/footer/Footer';
 import Slide from '../../components/userGuestScreen/slide/Slide';
 import theme from '../../styles/theme';
@@ -74,7 +72,7 @@ const UserGuestScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : 40,
+    marginTop: Platform.OS === 'ios' ? 0 : 20,
     backgroundColor: theme.colors.white,
   },
   iconBtn: {

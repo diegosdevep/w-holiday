@@ -16,6 +16,6 @@ export const styles = StyleSheet.create({
   boxIcons: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 30,
+    gap: 10,
   },
 });

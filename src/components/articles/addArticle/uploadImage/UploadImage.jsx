@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, ScrollView, Text } from 'react-native';
+import { Alert, ScrollView, Text, Dimensions } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import {
@@ -12,6 +12,9 @@ import {
 import { styles } from './uploadimage.styles';
 import theme from '../../../../styles/theme';
 import { v4 as uuid } from 'uuid';
+import * as ImageManipulator from 'expo-image-manipulator';
+
+const { width } = Dimensions.get('window');
 
 const UploadImage = ({ formik }) => {
   const openGallery = async () => {
@@ -19,11 +22,33 @@ const UploadImage = ({ formik }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0.5,
+      quality: 1,
     });
-
     if (!result.canceled) {
-      uploadImage(result.assets[0].uri);
+      await compressAndUploadImage(result.assets[0].uri);
+    }
+  };
+
+  const compressAndUploadImage = async (uri) => {
+    try {
+      const compressedUri = await compressImage(uri, 0.5);
+      await uploadImage(compressedUri);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const compressImage = async (uri, compressRatio) => {
+    try {
+      const manipResult = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: 400, height: 400 } }],
+        { compress: compressRatio, format: ImageManipulator.SaveFormat.JPEG }
+      );
+
+      return manipResult.uri;
+    } catch (error) {
+      throw error;
     }
   };
 

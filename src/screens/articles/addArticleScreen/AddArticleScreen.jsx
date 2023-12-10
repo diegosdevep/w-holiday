@@ -34,6 +34,7 @@ const AddArticleScreen = () => {
             id: uuid(),
             likes: 0,
             likedBy: [],
+            comments: [],
             userId: user.uid,
             createdAt: new Date(),
           };

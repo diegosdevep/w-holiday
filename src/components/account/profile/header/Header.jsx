@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Avatar } from 'react-native-elements';
-import theme from '../../../../styles/theme';
 import * as ImagePicker from 'expo-image-picker';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-import { useState } from 'react';
+import theme from '../../../../styles/theme';
 import {
   collection,
   getDocs,
@@ -14,8 +14,9 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from '../../../../firebase/firebase';
+import * as ImageManipulator from 'expo-image-manipulator';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const Header = () => {
   const { photoURL, email, displayName, uid } = getAuth().currentUser;
@@ -26,9 +27,35 @@ const Header = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
+      quality: 1,
     });
 
-    if (!result.canceled) uploadImage(result.assets[0].uri);
+    if (!result.canceled) {
+      await compressAndUploadImage(result.assets[0].uri);
+    }
+  };
+
+  const compressAndUploadImage = async (uri) => {
+    try {
+      const compressedUri = await compressImage(uri, 0.5);
+      await uploadImage(compressedUri);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const compressImage = async (uri, compressRatio) => {
+    try {
+      const manipResult = await ImageManipulator.manipulateAsync(
+        uri,
+        [{ resize: { width: width / 2 } }],
+        { compress: compressRatio, format: ImageManipulator.SaveFormat.JPEG }
+      );
+
+      return manipResult.uri;
+    } catch (error) {
+      throw error;
+    }
   };
 
   const uploadImage = async (uri) => {

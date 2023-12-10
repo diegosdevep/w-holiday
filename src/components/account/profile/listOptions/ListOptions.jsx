@@ -78,8 +78,8 @@ function getMenuOptions(selectedComponent) {
       onPress: () => selectedComponent('password'),
     },
     {
-      icon: 'heart',
-      text: 'Favoritos',
+      icon: 'bookmark',
+      text: 'Guardados',
       onPress: () => selectedComponent('favorites'),
     },
     {
