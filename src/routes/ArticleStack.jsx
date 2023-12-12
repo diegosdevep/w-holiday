@@ -22,7 +22,10 @@ const ArticleStack = () => {
       <Stack.Screen
         name={screen.article.articleDetail}
         component={ArticleDetailScreen}
-        options={{ title: 'Detalles de Articulo' }}
+        options={{
+          title: 'Detalles de Articulo',
+          headerShown: true,
+        }}
       />
     </Stack.Navigator>
   );

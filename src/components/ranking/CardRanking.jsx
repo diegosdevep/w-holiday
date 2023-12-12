@@ -29,7 +29,7 @@ const CardRanking = ({ item, index, userData }) => {
 
   const handlePress = () => {
     navigation.navigate(screen.article.tab, {
-      screen: screen.article.articleDetail,
+      screen: screen.article.article,
       params: {
         articleData: item.articleData,
         userData: userData,

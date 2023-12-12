@@ -6,13 +6,16 @@ import {
   orderBy,
   onSnapshot,
   getDocs,
+  where,
 } from 'firebase/firestore';
 import { db } from '../../firebase/firebase.js';
 import CardRanking from '../../components/ranking/CardRanking.jsx';
+import DropDownRanking from '../../components/ranking/dropdown/DropDownRanking';
 
 const RankingScreen = () => {
   const [users, setUsers] = useState([]);
   const [rankingData, setRankingData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('selectedCountry');
 
   const [memoizedUsers, memoizedRankingData] = useMemo(
     () => [users, rankingData],
@@ -36,23 +39,46 @@ const RankingScreen = () => {
       }
     };
 
-    const unsubscribe = onSnapshot(
-      query(collection(db, 'articles'), orderBy('likes', 'desc')),
-      (querySnapshot) => {
-        const rankingItems = querySnapshot.docs.map((doc) => ({
+    let baseQuery = collection(db, 'articles');
+
+    const fetchRankingData = async () => {
+      try {
+        let baseQuery = collection(db, 'articles');
+
+        if (
+          selectedCategory !== null &&
+          selectedCategory !== 'selectedCountry'
+        ) {
+          baseQuery = query(
+            baseQuery,
+            where('category', '==', selectedCategory)
+          );
+        }
+
+        baseQuery = query(baseQuery, orderBy('likes', 'desc'));
+
+        const rankingSnapshot = await getDocs(baseQuery);
+        const rankingItems = rankingSnapshot.docs.map((doc) => ({
           id: doc.id,
           data: doc.data(),
         }));
         setRankingData(rankingItems);
+      } catch (error) {
+        console.error('Error fetching ranked data:', error);
       }
-    );
+    };
+
+    const unsubscribe = onSnapshot(baseQuery, fetchRankingData);
 
     fetchUsers();
+    if (selectedCategory === null) {
+      fetchRankingData();
+    }
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [selectedCategory]);
 
   const dataToRender = useMemo(() => {
     return memoizedRankingData?.map((article) => {
@@ -68,6 +94,10 @@ const RankingScreen = () => {
 
   return (
     <View>
+      <DropDownRanking
+        onSelectCategory={(category) => setSelectedCategory(category)}
+      />
+
       <FlatList
         showsVerticalScrollIndicator={false}
         data={dataToRender}
