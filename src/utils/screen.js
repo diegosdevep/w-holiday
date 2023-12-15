@@ -21,7 +21,7 @@ const accountStack = {
   account: 'Account',
   login: 'Login',
   register: 'Register',
-  favorites: 'Favorites',
+  saved: 'Saved',
   misArticulos: 'Mis Articulos',
 };
 

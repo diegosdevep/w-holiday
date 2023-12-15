@@ -1,33 +1,17 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { View, FlatList } from 'react-native';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../../firebase/firebase';
+import { useUserContext } from '../../../../context/UserProvider';
 import ArticleCard from '../articleCard/ArticleCard';
 import { styles } from './articleList.styles';
 
 const ArticleList = ({ articles }) => {
-  const [users, setUsers] = useState([]);
+  const { users, fetchUsers } = useUserContext();
   const [memoizedUsers, memoizedArticles] = useMemo(
     () => [users, articles],
     [users, articles]
   );
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersCollection = collection(db, 'users');
-        const usersSnapshot = await getDocs(usersCollection);
-
-        const usersData = usersSnapshot.docs?.map((userDoc) => ({
-          id: userDoc.uid,
-          data: userDoc.data(),
-        }));
-
-        setUsers(usersData);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
     fetchUsers();
   }, []);
 

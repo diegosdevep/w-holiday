@@ -25,9 +25,9 @@ const ListOptions = ({ onReload }) => {
     if (key === 'password') {
       setRenderComponent(<ChangePassword onClose={onCloseModal} />);
     }
-    if (key === 'favorites') {
+    if (key === 'saved') {
       onCloseModal();
-      setRenderComponent(navigation.navigate(screen.account.favorites));
+      setRenderComponent(navigation.navigate(screen.account.saved));
     }
     if (key === 'misArticulos') {
       onCloseModal();
@@ -80,7 +80,7 @@ function getMenuOptions(selectedComponent) {
     {
       icon: 'bookmark',
       text: 'Guardados',
-      onPress: () => selectedComponent('favorites'),
+      onPress: () => selectedComponent('saved'),
     },
     {
       icon: 'text-box-outline',

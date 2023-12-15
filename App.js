@@ -5,10 +5,11 @@ import AppNavigation from './src/routes/AppNavigation';
 import 'react-native-get-random-values';
 import { StatusBar } from 'expo-status-bar';
 import theme from './src/styles/theme';
+import { UserProvider } from './src/context/UserProvider';
 
 export default function App() {
   return (
-    <>
+    <UserProvider>
       <StatusBar
         backgroundColor={theme.colors.white}
         hidden={false}
@@ -19,6 +20,6 @@ export default function App() {
         <AppNavigation />
       </NavigationContainer>
       <Toast />
-    </>
+    </UserProvider>
   );
 }

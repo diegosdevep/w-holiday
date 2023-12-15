@@ -1,26 +1,41 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import theme from '../../../../styles/theme';
+import { formatCreatedAt } from '../../../../utils/formatCreatedAt';
 
-const ArticleComment = ({ comment }) => (
-  <View style={styles.container}>
-    <Avatar
-      size={30}
-      rounded
-      icon={{ type: 'material', name: 'person' }}
-      containerStyle={styles.img}
-      source={{ uri: comment?.user?.imageURL }}
-    />
-    <View style={styles.content}>
-      <Text style={styles.user}>
-        {comment?.user?.displayName || comment?.user?.email}
-      </Text>
-      <Text style={styles.text}>{comment.comment}</Text>
+const ArticleComment = ({ comment }) => {
+  const formattedDate = formatCreatedAt(comment.createdAt);
+
+  return (
+    <View style={styles.container}>
+      <Avatar
+        size={30}
+        rounded
+        icon={{ type: 'material', name: 'person' }}
+        containerStyle={styles.img}
+        source={{ uri: comment?.user?.imageURL }}
+      />
+      <View style={styles.content}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
+        >
+          <Text style={styles.user}>
+            {comment?.user?.displayName || comment?.user?.email}
+          </Text>
+          <Text style={styles.date}>{formattedDate}</Text>
+        </View>
+        <Text style={styles.text}>{comment.comment}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: '100%',
     flexDirection: 'row',
@@ -53,5 +68,11 @@ export const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.normal,
     color: theme.colors.grey.grey700,
   },
+  date: {
+    fontSize: theme.fontSize.sm,
+    fontWeight: theme.fontWeight.semiBold,
+    color: theme.colors.grey.grey500,
+  },
 });
+
 export default ArticleComment;

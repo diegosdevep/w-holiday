@@ -11,9 +11,11 @@ import {
 import { db } from '../../firebase/firebase.js';
 import CardRanking from '../../components/ranking/CardRanking.jsx';
 import DropDownRanking from '../../components/ranking/dropdown/DropDownRanking';
+import { useUserContext } from '../../context/UserProvider.jsx';
 
 const RankingScreen = () => {
-  const [users, setUsers] = useState([]);
+  const { users, fetchUsers } = useUserContext();
+
   const [rankingData, setRankingData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('selectedCountry');
 
@@ -23,22 +25,6 @@ const RankingScreen = () => {
   );
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersCollection = collection(db, 'users');
-        const usersSnapshot = await getDocs(usersCollection);
-
-        const usersData = usersSnapshot.docs?.map((userDoc) => ({
-          id: userDoc.uid,
-          data: userDoc.data(),
-        }));
-
-        setUsers(usersData);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
     let baseQuery = collection(db, 'articles');
 
     const fetchRankingData = async () => {
